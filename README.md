@@ -163,6 +163,7 @@ variable "vm_boot" {
 ```
 3. Create file on your main directory or define a directory like as `staging` or `production`.
 
+```hcl
 module "proxmox_vm" {
   source      = "./modules/proxmox_vm"
   vm_name     = "terraform-vm"
