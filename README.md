@@ -1,202 +1,93 @@
+# Terraform Qemu
 
-# Terraform Proxmox QEMU VM Module
 
-This project provides Terraform configurations for provisioning virtual machines using the Proxmox QEMU provider. It is designed to help you quickly deploy and manage VMs in a Proxmox environment using Terraform.
 
-## Prerequisites
+## Getting started
 
-Before you begin, ensure you have the following prerequisites installed and configured:
+To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
-- Proxmox VE installed and accessible.
-- Terraform v0.13+ installed on your machine.
-- Proper credentials (API token or username and password) with sufficient permissions configured in Proxmox.
+Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
 
-## Quick Start
+## Add your files
 
-Follow these steps to quickly get started with this Terraform module:
+- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
+- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
 
-### 1. Initialization
-
-Initialize Terraform to install necessary providers and set up the environment:
-
-```bash
-terraform init
+```
+cd existing_repo
+git remote add origin https://git.immobisp.com/netsight1/netsight-olt/terraform-qemu.git
+git branch -M main
+git push -uf origin main
 ```
 
-### 2. Planning
+## Integrate with your tools
 
-Generate an execution plan to preview the changes that Terraform will make to reach your desired state:
+- [ ] [Set up project integrations](https://git.immobisp.com/netsight1/netsight-olt/terraform-qemu/-/settings/integrations)
 
-```bash
-terraform plan -target=module.[MODULE-NAME]
-```
+## Collaborate with your team
 
-### 3. Applying
+- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
+- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
+- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
+- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
+- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
 
-Apply the changes required to reach the desired state of the configuration:
+## Test and Deploy
 
-```bash
-terraform apply -target=module.[MODULE-NAME]
-```
+Use the built-in continuous integration in GitLab.
 
-### 4. Importing Resources
+- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
+- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
+- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
+- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
+- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
 
-To bring existing resources under Terraform management, use the import command:
+***
 
-```bash
-terraform import module.[MODULE-NAME].[RESOURCE-ID].[RESOURCE-NAME] [PROXMOX-ID]/[PROXMOX-RESOURCE]/[NODE-ID]
-```
+# Editing this README
 
-Replace `[resource-id]` with the actual ID of the resource.
+When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
 
-### 5. Destroying
+## Suggestions for a good README
 
-Remove the Terraform-managed infrastructure when it's no longer needed:
+Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
 
-```bash
-terraform destroy -target=module.[MODULE-NAME]
-```
+## Name
+Choose a self-explaining name for your project.
 
-## Example Configuration
+## Description
+Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
 
-Here is a simple example of what your `main.tf` might look like:
+## Badges
+On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
 
-```hcl
-terraform {
-  required_providers {
-    proxmox = {
-      source  = "telmate/proxmox"
-      version = "3.0.1-rc1"
-    }
-  }
-}
+## Visuals
+Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
 
-provider "proxmox" {
-  pm_api_url      = var.pm_host
-  pm_user         = var.pm_user
-  pm_password     = var.pm_password
-  pm_tls_insecure = true
-}
-```
+## Installation
+Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-Save this configuration on your main directory or define a directory like as `staging` or `production`.
+## Usage
+Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-Here is a simple example of what your `variable.tf` might look like:
+## Support
+Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
 
-```hcl
-variable "pm_host" {
-  description = "Proxmox API host"
-  type        = string
-}
-
-variable "pm_user" {
-  description = "Proxmox API user"
-  type        = string
-}
-
-variable "pm_password" {
-  description = "Proxmox API password"
-  type        = string
-}
-```
-
-Save this configuration on your main directory or define a directory like as `staging` or `production`.
-
-If you want to create a modules to reuse any config on your resource, you can create directory `modules/proxmox-qemu-vm`
-
-1. Create file `main.tf` 
-
-```hcl
-terraform {
-  required_providers {
-    proxmox = {
-      source  = "telmate/proxmox"
-      version = "3.0.1-rc1"
-    }
-  }
-}
-
-
-resource "proxmox_vm_qemu" "vm_instance" {
-  name                   = var.vm_name
-  desc                   = var.vm_desc
-  agent                  = var.vm_agent
-  target_node            = var.vm_target_node
-  clone                  = var.vm_template
-  full_clone             = false
-....
-....
-....
-}
-```
-
-2. Create file `variable.tf`
-
-```hcl
-variable "instance_count" {
-  description = "Number of instances to create"
-  type        = number
-  default     = 1
-}
-
-variable "vm_name" {
-  description = "Name of the VM"
-  type        = string
-}
-
-variable "vm_desc" {
-  description = "Description of the VM"
-  type        = string
-  default      = "VM Testing"
-}
-
-variable "vm_agent" {
-  description = "Name of the VM"
-  type        = number
-}
-
-variable "vm_boot" {
-  description = "Name of the VM"
-  type        = string
-  default     = "order=scsi0;ide2;net0"
-}
-```
-3. Create file on your main directory or define a directory like as `staging` or `production`.
-
-```hcl
-module "proxmox_vm" {
-  source      = "./modules/proxmox_vm"
-  vm_name     = "terraform-vm"
-  target_node = "pve1"
-  clone       = "template-vm-id"
-  ....
-  ....
-  ....
-}
-```
+## Roadmap
+If you have ideas for releases in the future, it is a good idea to list them in the README.
 
 ## Contributing
+State if you are open to contributions and what your requirements are for accepting them.
 
-We welcome contributions from the community! To contribute to this project, please fork the repository, make your changes, and submit a pull request.
+For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+
+You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+
+## Authors and acknowledgment
+Show your appreciation to those who have contributed to the project.
 
 ## License
+For open source projects, say how it is licensed.
 
-This project is licensed under the [MIT License](LICENSE.md). See the LICENSE file for more details.
-
-## Project Status
-
-This project is actively maintained. For any questions or issues, please open an issue on the project's issue tracker.
-
-## Additional Resources
-
-- [Terraform Documentation](https://www.terraform.io/docs)
-- [Proxmox VE Documentation](https://pve.proxmox.com/pve-docs/)
-- [GitLab CI/CD](https://docs.gitlab.com/ee/ci/)
-
----
-
-## Contact
-
-For support or queries, reach out via [GitHub Issues](https://github.com/hilmanzhy/issues).
-
-Thank you for using or contributing to this project!
+## Project status
+If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.

@@ -2,7 +2,7 @@ terraform {
   required_providers {
     proxmox = {
       source  = "telmate/proxmox"
-      version = "3.0.1-rc1"
+      version = "3.0.1-rc3"
     }
   }
 }
@@ -13,7 +13,8 @@ resource "proxmox_vm_qemu" "vm_instance" {
   desc                   = var.vm_desc
   agent                  = var.vm_agent
   target_node            = var.vm_target_node
-  clone                  = var.vm_template
+  # clone                  = var.vm_template
+  # iso                    = var.iso_file
   full_clone             = false
   boot                   = var.vm_boot
   hotplug                = "network,disk,usb"
@@ -50,7 +51,16 @@ resource "proxmox_vm_qemu" "vm_instance" {
               }
           }
       }
+      ide {
+        ide0 {
+          cdrom {
+            iso = var.iso_file
+          }
+        }
+      }
   }
+
+
 
  dynamic "network" {
     for_each = var.network_interfaces

@@ -1,3 +1,21 @@
+variable "pm_host" {
+  description = "Proxmox API host"
+  type        = string
+  default     = "value"
+}
+
+variable "pm_user" {
+  description = "Proxmox API user"
+  type        = string
+  default = "value"
+}
+
+variable "pm_password" {
+  description = "Proxmox API password"
+  type        = string
+  default = "value"
+}
+
 variable "instance_count" {
   description = "Number of instances to create"
   type        = number
@@ -7,6 +25,23 @@ variable "instance_count" {
 variable "vm_name" {
   description = "Name of the VM"
   type        = string
+}
+
+variable "vm_user" {
+  description = "Name of the VM"
+  type        = string
+  default     = "value"
+}
+
+variable "vm_password" {
+  description = "Name of the VM"
+  type        = string
+  sensitive   = true
+}
+
+variable "vm_id" {
+  description = "Name of the VM"
+  type        = number
 }
 
 variable "vm_desc" {
@@ -20,10 +55,16 @@ variable "vm_agent" {
   type        = number
 }
 
+variable "vm_storage" {
+  description = "Name of the VM"
+  type        = string
+  default     = "local-lvm"
+}
+
 variable "vm_boot" {
   description = "Name of the VM"
   type        = string
-  default     = "order=scsi0;ide0;net0"
+  default     = "order=scsi0;net0"
 }
 
 variable "vm_qemu_os" {
@@ -174,4 +215,16 @@ variable "network_firewall" {
 variable "iso_file" {
   type        = string
   default     = "ubuntu-24.04-live-server-amd64.iso"
+}
+
+variable "ssh_private_key_path" {
+  description = "Path to the SSH private key for Proxmox connection"
+  type        = string
+  default = "/Users/hilmanzhy/.ssh/hilmanzhy_rsa"
+}
+
+variable "ssh_public_key_path" {
+  description = "Path to the SSH private key for Proxmox connection"
+  type        = string
+  default = "/Users/hilmanzhy/.ssh/hilmanzhy_rsa.pub"
 }
