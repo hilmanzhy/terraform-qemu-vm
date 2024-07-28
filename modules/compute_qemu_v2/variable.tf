@@ -39,6 +39,17 @@ variable "vm_password" {
   sensitive   = true
 }
 
+variable "vm_ipconfig" {
+  description = "default iP config on VM"
+  type        = string
+}
+
+variable "vm_ssh_port" {
+  description = "default ssh port on VM"
+  type        = number
+  default     = 22
+}
+
 variable "vm_id" {
   description = "Name of the VM"
   type        = number
@@ -227,4 +238,30 @@ variable "ssh_public_key_path" {
   description = "Path to the SSH private key for Proxmox connection"
   type        = string
   default = "/Users/hilmanzhy/.ssh/hilmanzhy_rsa.pub"
+}
+
+variable "image_url" {
+  description = "The URL of the image to download."
+  type        = string
+}
+
+variable "image_path" {
+  description = "The destination path for the downloaded image."
+  type        = string
+}
+
+locals {
+  download_script_content = <<-EOT
+    #!/bin/bash
+
+    IMAGE_URL="${var.image_url}"
+    IMAGE_PATH="${var.image_path}"
+
+    if [ -f "$IMAGE_PATH" ]; then
+      echo "Image file already exists at $IMAGE_PATH, skipping download."
+    else
+      echo "Downloading image from $IMAGE_URL to $IMAGE_PATH..."
+      wget -O $IMAGE_PATH $IMAGE_URL
+    fi
+  EOT
 }

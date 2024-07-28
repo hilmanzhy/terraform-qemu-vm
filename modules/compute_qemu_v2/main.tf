@@ -7,9 +7,15 @@ terraform {
   }
 }
 
+resource "local_file" "download_script" {
+  content  = local.download_script_content
+  filename = "${path.module}/download.sh"
+}
+
 resource "null_resource" "download_image" {
   provisioner "file" {
-    source      = "/Users/hilmanzhy/research/terraform-qemu-vm/modules/compute_qemu_v2/download.sh"
+    source      = local_file.download_script.filename
+    # source      = "/Users/hilmanzhy/research/terraform-qemu-vm/modules/compute_qemu_v2/download.sh"
     destination = "/tmp/download.sh"
     connection {
       type        = "ssh"
@@ -69,6 +75,7 @@ resource "proxmox_vm_qemu" "vm_instance" {
   name            = var.vm_name
   vmid            = var.vm_id
   desc            = var.vm_desc
+  define_connection_info = "true"
   target_node     = var.vm_target_node
   full_clone      = false
   boot            = var.vm_boot
@@ -87,6 +94,9 @@ resource "proxmox_vm_qemu" "vm_instance" {
   sshkeys         = file(var.ssh_public_key_path)
   ciuser          = var.vm_user
   cipassword      = var.vm_password
+  ipconfig0       = var.vm_ipconfig
+  nameserver      = "8.8.8.8"
+  searchdomain    = "google.com"
 
   disks {
       scsi {

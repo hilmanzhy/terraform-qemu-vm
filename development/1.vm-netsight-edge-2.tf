@@ -1,26 +1,33 @@
-locals {
-  tvmu_edge_2_name = "netsight-edge-2"
-}
+# locals {
+#   tvmu_edge_name_2 = "netsight-edge-2"
+# }
 
-module "proxmox_vm_netsight_edge_2" {
-  source            = "../modules/compute_qemu"
-  vm_desc           = "vm for netsight edge 2"
-  vm_name           = local.tvmu_edge_2_name
-  vm_agent          = 1
-  vm_target_node    = "immobisp"
-  iso_file          = "local:iso/ubuntu-24.04-live-server-amd64.iso"
-  vm_cores          = 4
-  vm_sockets        = 1
-  vm_memory         = 2048
-
-  disk_size         = "30"
-  disk_backup       = true
-  
-  network_model     = "virtio"
-  network_bridge    = "vmbr0"
-  network_mtu       = 0
-  network_queues    = 0
-  network_rate      = 0
-  network_tag       = 200
-  network_firewall  = true
-}
+# module "proxmox_vm_netsight_edge_2" {
+#   source            = "../modules/compute_qemu_v2"
+#   pm_host           = var.vm_host
+#   pm_user           = var.vm_username
+#   vm_desc           = "vm for netsight edge 2"
+#   vm_name           = local.tvmu_edge_name_2
+#   vm_id             = 1002
+#   vm_agent          = 1
+#   vm_target_node    = var.vm_node_name
+#   iso_file          = "local:iso/ubuntu-24.04-live-server-amd64.iso"
+#   vm_cores          = 2
+#   vm_sockets        = 1
+#   vm_memory         = 2048
+#   # vm_boot           = "scsi0"
+#   vm_os_type        = "cloud-init"
+#   disk_size         = "30"
+#   disk_backup       = true
+#   network_model     = "virtio"
+#   network_bridge    = "vmbr2"
+#   network_mtu       = 0
+#   network_queues    = 0
+#   network_rate      = 0
+#   network_tag       = 200
+#   network_firewall  = true
+#   image_path        = "/root/ubuntu-24-amd64.img"
+#   image_url         = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
+#   vm_user           = var.vm_user
+#   vm_password       = var.vm_password
+# }
