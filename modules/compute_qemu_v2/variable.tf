@@ -158,7 +158,7 @@ variable "disk_storage" {
 
 variable "network_interfaces" {
   description = "Map of network interfaces"
-  type = map(object({
+  type = list(object({
     network_model     = string
     network_bridge    = string
     network_firewall  = bool
@@ -167,17 +167,17 @@ variable "network_interfaces" {
     network_queues    = number
     network_rate      = number
   }))
-  default = {
-    net0 = {
-      network_model     = "virtio"
-      network_bridge    = "vmbr0"
-      network_firewall  = true
-      network_tag       = 100
-      network_mtu       = 1500
-      network_queues    = 2
-      network_rate      = 1000
-    }
-  }
+  # default = {
+  #   net0 = {
+  #     network_model     = "virtio"
+  #     network_bridge    = "vmbr0"
+  #     network_firewall  = true
+  #     network_tag       = 100
+  #     network_mtu       = 1500
+  #     network_queues    = 2
+  #     network_rate      = 1000
+  #   }
+  # }
 }
 
 

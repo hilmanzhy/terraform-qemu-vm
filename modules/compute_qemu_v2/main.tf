@@ -65,9 +65,9 @@ resource "null_resource" "import_disk" {
       exit
     EOT
   }
-  triggers = {
-    always_run = "${timestamp()}"
-  }
+  # triggers = {
+  #   always_run = "${timestamp()}"
+  # }
 }
 
 resource "proxmox_vm_qemu" "vm_instance" {
